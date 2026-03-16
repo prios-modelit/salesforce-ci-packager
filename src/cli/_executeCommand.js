@@ -36,17 +36,17 @@ function executeCommand({command}) {
     return new Promise((resolve, reject) => {
         try {
             debug('Executing command: ' + command);
-            exec(command, (error, stdout, stderr) => {
+            exec(command, { maxBuffer: 50 * 1024 * 1024 }, (error, stdout, stderr) => {
                 try {
                     const parsedOutput = JSON.parse(stdout);
-    
+
                     if (parsedOutput.status !== 0) {
                         reject(parsedOutput);
                     }
-    
+
                     resolve(parsedOutput);
-                } catch (error) {
-                    reject(error);
+                } catch (parseError) {
+                    reject(new Error(`Failed to parse CLI output: ${parseError.message}. stdout length: ${stdout?.length}, stderr: ${stderr?.substring(0, 500)}`));
                 }
             });
             
