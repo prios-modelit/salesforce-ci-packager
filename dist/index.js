@@ -27350,8 +27350,10 @@ const updatePackageAliases = ({ sfdxProjectConfig, packageName, versionNumber, p
 function executeCommand({command}) {
     return new Promise((resolve, reject) => {
         try {
-            coreExports.debug('Executing command: ' + command);
+            coreExports.info('Executing command: ' + command);
             exec$1(command, { maxBuffer: 50 * 1024 * 1024, shell: '/bin/bash' }, (error, stdout, stderr) => {
+                if (stderr) coreExports.info('stderr: ' + stderr.substring(0, 1000));
+                if (error) coreExports.info('exec error: ' + error.message);
                 try {
                     const parsedOutput = JSON.parse(stdout);
 
