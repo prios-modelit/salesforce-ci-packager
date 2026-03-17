@@ -27350,10 +27350,8 @@ const updatePackageAliases = ({ sfdxProjectConfig, packageName, versionNumber, p
 function executeCommand({command}) {
     return new Promise((resolve, reject) => {
         try {
-            coreExports.info('Executing command: ' + command);
-            exec$1(command, { maxBuffer: 50 * 1024 * 1024, shell: '/bin/bash' }, (error, stdout, stderr) => {
-                if (stderr) coreExports.info('stderr: ' + stderr.substring(0, 1000));
-                if (error) coreExports.info('exec error: ' + error.message);
+            coreExports.debug('Executing command: ' + command);
+            exec$1(command, (error, stdout, stderr) => {
                 try {
                     const parsedOutput = JSON.parse(stdout);
 
@@ -27416,27 +27414,27 @@ const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, no
     }
     
     if (packageType) {
-      command += ` --package-type ${packageType}`;
+      command += ` --package-type "${packageType}"`;
     }
 
     if (path) {
-      command += ` --path ${path}`;
+      command += ` --path "${path}"`;
     }
-  
+
     if (noNamespace === 'true') {
       command += ` --no-namespace`;
     }
-    
+
     if (orgDependent === 'true') {
       command += ` --org-dependent`;
     }
-    
+
     if (errorNotificationUsername) {
-      command += ` --error-notification-username ${errorNotificationUsername}`;
+      command += ` --error-notification-username "${errorNotificationUsername}"`;
     }
-    
+
     if (apiVersion) {
-      command += ` --api-version ${apiVersion}`;
+      command += ` --api-version "${apiVersion}"`;
     }
     
     // Always return JSON output
