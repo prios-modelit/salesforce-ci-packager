@@ -4,7 +4,7 @@
  */
 
 import { exec } from 'child_process';
-import { debug} from '@actions/core';
+import { debug, info } from '@actions/core';
 
 /**
  * Executes a Salesforce CLI command and processes its JSON output
@@ -35,8 +35,10 @@ import { debug} from '@actions/core';
 function executeCommand({command}) {
     return new Promise((resolve, reject) => {
         try {
-            debug('Executing command: ' + command);
+            info('Executing command: ' + command);
             exec(command, { maxBuffer: 50 * 1024 * 1024, shell: '/bin/bash' }, (error, stdout, stderr) => {
+                if (stderr) info('stderr: ' + stderr.substring(0, 1000));
+                if (error) info('exec error: ' + error.message);
                 try {
                     const parsedOutput = JSON.parse(stdout);
 
