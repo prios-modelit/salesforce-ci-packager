@@ -36,7 +36,7 @@ function executeCommand({command}) {
     return new Promise((resolve, reject) => {
         try {
             debug('Executing command: ' + command);
-            exec(command, { maxBuffer: 50 * 1024 * 1024 }, (error, stdout, stderr) => {
+            exec(command, { maxBuffer: 50 * 1024 * 1024, shell: '/bin/bash' }, (error, stdout, stderr) => {
                 try {
                     const parsedOutput = JSON.parse(stdout);
 
