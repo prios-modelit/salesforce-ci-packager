@@ -43,27 +43,27 @@ const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, no
     }
     
     if (packageType) {
-      command += ` --package-type ${packageType}`;
+      command += ` --package-type "${packageType}"`;
     }
 
     if (path) {
-      command += ` --path ${path}`;
+      command += ` --path "${path}"`;
     }
-  
+
     if (noNamespace === 'true') {
       command += ` --no-namespace`;
     }
-    
+
     if (orgDependent === 'true') {
       command += ` --org-dependent`;
     }
-    
+
     if (errorNotificationUsername) {
-      command += ` --error-notification-username ${errorNotificationUsername}`;
+      command += ` --error-notification-username "${errorNotificationUsername}"`;
     }
-    
+
     if (apiVersion) {
-      command += ` --api-version ${apiVersion}`;
+      command += ` --api-version "${apiVersion}"`;
     }
     
     // Always return JSON output
