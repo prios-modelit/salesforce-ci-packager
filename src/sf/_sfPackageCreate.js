@@ -39,7 +39,7 @@ const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, no
     
     // Add required parameters
     if (packageName) {
-      command += ` --name ${packageName}`;
+      command += ` --name "${packageName}"`;
     }
     
     if (packageType) {
