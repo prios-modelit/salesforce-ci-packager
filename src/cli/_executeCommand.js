@@ -4,11 +4,11 @@
  */
 
 import { exec } from 'child_process';
-import { debug } from '@actions/core';
+import { debug} from '@actions/core';
 
 /**
  * Executes a Salesforce CLI command and processes its JSON output
- * 
+ *
  * @async
  * @function executeCommand
  * @param {Object} params - The parameters for command execution
@@ -19,13 +19,13 @@ import { debug } from '@actions/core';
  * @throws {Object} Rejects with the parsed error output when command fails with non-zero status
  * @throws {Error} Rejects with parsing error if JSON parsing fails
  * @throws {Error} Rejects with execution error if command execution fails
- * 
+ *
  * @example
  * // Execute a Salesforce CLI command
  *   const result = await executeCommand({
  *     command: 'npx @salesforce/cli package version create --package MyPackage --json'
  *   });
- * 
+ *
  * @remarks
  * This utility is specifically designed to work with Salesforce CLI commands that return JSON output.
  * Always include the --json flag in your commands to ensure proper parsing.
@@ -45,13 +45,13 @@ function executeCommand({command}) {
                     }
 
                     resolve(parsedOutput);
-                } catch (parseError) {
-                    reject(new Error(`Failed to parse CLI output: ${parseError.message}. stdout length: ${stdout?.length}, stderr: ${stderr?.substring(0, 500)}`));
+                } catch (error) {
+                    reject(error);
                 }
             });
-            
+
         } catch (error) {
-            reject(error);      
+            reject(error);
         }
     });
 }

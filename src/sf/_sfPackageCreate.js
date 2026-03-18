@@ -36,12 +36,12 @@ import { executeCommand } from '@cli';
  */
 const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, noNamespace, orgDependent, errorNotificationUsername, apiVersion}) => {
     let command = `npx @salesforce/cli package create --target-dev-hub "${targetDevHub}"`;
-    
+
     // Add required parameters
     if (packageName) {
       command += ` --name "${packageName}"`;
     }
-    
+
     if (packageType) {
       command += ` --package-type "${packageType}"`;
     }
@@ -65,10 +65,10 @@ const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, no
     if (apiVersion) {
       command += ` --api-version "${apiVersion}"`;
     }
-    
+
     // Always return JSON output
     command += ` --json`;
-    
+
     return executeCommand({command});
   }
 
