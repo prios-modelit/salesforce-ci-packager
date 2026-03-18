@@ -27354,14 +27354,14 @@ function executeCommand({command}) {
             exec$1(command, (error, stdout, stderr) => {
                 try {
                     const parsedOutput = JSON.parse(stdout);
-
+    
                     if (parsedOutput.status !== 0) {
                         reject(parsedOutput);
                     }
-
+    
                     resolve(parsedOutput);
-                } catch (parseError) {
-                    reject(new Error(`Failed to parse CLI output: ${parseError.message}. stdout length: ${stdout?.length}, stderr: ${stderr?.substring(0, 500)}`));
+                } catch (error) {
+                    reject(error);
                 }
             });
             
@@ -27420,19 +27420,19 @@ const sfPackageCreate = async ({targetDevHub, packageName, packageType, path, no
     if (path) {
       command += ` --path "${path}"`;
     }
-
+  
     if (noNamespace === 'true') {
       command += ` --no-namespace`;
     }
-
+    
     if (orgDependent === 'true') {
       command += ` --org-dependent`;
     }
-
+    
     if (errorNotificationUsername) {
       command += ` --error-notification-username "${errorNotificationUsername}"`;
     }
-
+    
     if (apiVersion) {
       command += ` --api-version "${apiVersion}"`;
     }
